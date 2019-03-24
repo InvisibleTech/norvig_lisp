@@ -16,12 +16,19 @@ What do we have?
 * No Unit tests, yet.  I really don't know `Go` that well and I decided to go with the rough sketch approach vs. the finely crafted Shaker Nightstand approach that TDD produces.  Tests will come and they are useful, but I have found by doing TDD you really need to understand tools and domains to be efficient.  Since this is a side project in my spare time... I'm doing the sketch approach.
 * I started with ideas learned in another blog on parsers written in `Go`, but there are some serious differences between something like `LISP` and something like `Property File` syntax.   The most glaring difference being that `LISP` as I am implementing it is pretty empty headed regarding keywords, operators and other crap.  It is aware of, for the purposes of this project, `Atoms` which are `Symbols` and `Numbers` organized into `Lists`.  If the `List` isn't quoted then we will use `Prefix Evaluation` to derive the value of the `List`. I follow the spirit, but maybe not the letter of [Peter Norvig's LISPY post](http://norvig.com/lispy.html).
 * Right now this commit doesn't work.
+## Most Recent Commit
+* Added a module level Repl.go to make this build and be a module until I get a better handle on Go mod stuff.
+* Pretty much dumped all the old parser stuff.  I was digging into what I copied into my code and found out the original parser was an incomplete 
+implementation of one that used Goroutines.  I wasn't sure why there was a channel of length > 1, by experimenting and reading the documentation I learned that code would block without a channel that was bigger than needed.  However, the original code did not appear to use Goroutines as I understood them.  Instead I went with a simpler model based on Thorsten Ball's book.  
+* Differences from Thorsten Ball's example: go.mod, using rune vs. character, target syntax is mini-LISP.  Some naming and other conventions.
+* I now have a simple Unit Test. 
 ## Next
-* Tests for tokenizing functions.
-* Driver to run the tokenizer from start to finish.
+* Maybe rename files to snake case?  Need to figure out the conventions here.
+* Finish REPL to run the tokenizer from start to finish.
 * Add FunctionTable, OSLT, to allow interpreter to pre-define some default functions.  This means that even `+` and `*` will be treated as symbolic names and refer to functions that apply to lists of other `Atoms` and `Lists`.  The homoiconic aspect of `LISP` is really quite wonderful as it allows us to work on implementing a [Turing Complete](https://lispcast.com/the-most-important-idea-in-computer-science/) language implementation using only a few concepts.    
 
 ## Sources
 * http://norvig.com/lispy.html
 * https://medium.com/@trevor4e/learning-gos-concurrency-through-illustrations-8c4aff603b3
 * https://adampresley.github.io/2015/04/12/writing-a-lexer-and-parser-in-go-part-1.html
+* Writing An Interpreter In Go - Thorsten Ball
