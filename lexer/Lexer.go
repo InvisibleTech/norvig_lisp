@@ -40,6 +40,17 @@ func (l *Lexer) peekChar() rune {
 	}
 }
 
+func (l *Lexer) Tokenize() []token.Token {
+	var tokens []token.Token
+	var tok token.Token = l.NextToken()
+	for tok.Type != token.EOF {
+		tokens = append(tokens, tok)
+		tok = l.NextToken()
+	}
+
+	return tokens
+}
+
 func (l *Lexer) NextToken() token.Token {
 	var currentToken token.Token
 	l.skipWhitespace()

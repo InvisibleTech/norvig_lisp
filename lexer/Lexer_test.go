@@ -10,13 +10,13 @@ func TestNextToken(t *testing.T) {
 	input := `5
 	10
 		( x y )
-		add 
-		( five +5 -5 -10 
-		
-		
-		
+		add
+		( five +5 -5 -10
+
+
+
 		)
-`
+	`
 
 	tests := []struct {
 		expectedType    token.TokenType
@@ -52,5 +52,26 @@ func TestNextToken(t *testing.T) {
 			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
 				i, tt.expectedLiteral, tok.Literal)
 		}
+	}
+}
+
+func TestTokenize(t *testing.T) {
+	input := `5
+	10
+		( x y )
+		add
+		( five +5 -5 -10
+
+
+
+		)
+	`
+
+	l := NewLexer(input)
+
+	tokens := l.Tokenize()
+	if len(tokens) != 13 {
+		t.Fatalf("Tokenize did not return expected length slice, expected=%d, got %d",
+			13, len(tokens))
 	}
 }
