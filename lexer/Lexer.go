@@ -67,6 +67,8 @@ func (l *Lexer) NextToken() token.Token {
 	default:
 		if unicode.IsLetter(l.ch) {
 			currentToken = newToken(token.IDENTIFIER, l.readIdentifier())
+		} else if l.ch == '"' {
+			currentToken = newToken(token.STRING, l.readString())
 		} else if unicode.IsDigit(l.ch) ||
 			(isSign(l.ch) && unicode.IsDigit(l.peekChar())) {
 			currentToken = newToken(token.INT, l.readInteger())
@@ -90,6 +92,22 @@ func (l *Lexer) readIdentifier() string {
 		l.readChar()
 	}
 	return l.input[startingPosition:l.inputPosition]
+}
+
+func (l *Lexer) readString() string {
+	// Skip opening quote
+	l.readChar()
+
+	startingPosition := l.inputPosition
+	for l.ch != 0 && l.ch != '"' {
+		l.readChar()
+	}
+	endingPosition := l.inputPosition
+
+	// Skip quote or just stay at EOF
+	l.readChar()
+
+	return l.input[startingPosition:endingPosition]
 }
 
 func (l *Lexer) readInteger() string {

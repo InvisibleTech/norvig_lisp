@@ -13,6 +13,7 @@ func TestNextToken(t *testing.T) {
 		add
 		( five +5 -5 -10
 
+		"Hello"
 
 
 		)
@@ -34,6 +35,7 @@ func TestNextToken(t *testing.T) {
 		{token.INT, "+5"},
 		{token.INT, "-5"},
 		{token.INT, "-10"},
+		{token.STRING, "Hello"},
 		{token.RPAREN, ")"},
 		{token.EOF, ""},
 	}
@@ -62,6 +64,7 @@ func TestTokenize(t *testing.T) {
 		add
 		( five +5 -5 -10
 
+    "Hello"
 
 
 		)
@@ -70,7 +73,7 @@ func TestTokenize(t *testing.T) {
 	l := NewLexer(input)
 
 	tokens := l.Tokenize()
-	if len(tokens) != 13 {
+	if len(tokens) != 14 {
 		t.Fatalf("Tokenize did not return expected length slice, expected=%d, got %d",
 			13, len(tokens))
 	}

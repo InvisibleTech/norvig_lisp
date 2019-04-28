@@ -29,6 +29,14 @@ semantics of these.  Some of them, like subtraction, have a unary and n-ary beha
     * https://gobyexample.com/closures
     * https://gobyexample.com/collection-functions
     * https://en.wikibooks.org/wiki/Common_Lisp/First_steps/Beginner_tutorial#Subtraction
+
+## Started Trying to Figure Out the Syntax PArsing
+* Created a set of structs that might be how I do this.  Learning that Go
+type system rules and limitations.  Since I am basing this on the original
+article that used Python, there is a bit of a difference.
+* Added lexical support for double quoted strings.  Want them, now have
+them.  I want to use a single quote for quoting lists and symbols I think.
+
 ## Maybe Tomorrow... maybe someday
 * Maybe rename files to snake case?  Need to figure out the conventions here.
 

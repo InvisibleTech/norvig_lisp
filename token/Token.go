@@ -9,6 +9,7 @@ const (
 	INT        = "INT" // 1343456
 	LPAREN     = "("
 	RPAREN     = ")"
+	STRING     = "STRING"
 )
 
 type Token struct {
